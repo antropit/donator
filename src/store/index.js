@@ -60,7 +60,7 @@ export default new Vuex.Store({
         });
       } else state.presets = presets;
 
-      if(state.presetActiveId != undefined) {
+      if(state.presetActiveId > -1) {
         state.sum = state.presets[state.presetActiveId];
       } else { 
         state.sum = Math.floor(state.sum * currencies[id].rate / state.currencyRate);
