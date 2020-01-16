@@ -39,7 +39,6 @@
             >
               <v-text-field
                 v-model="$store.state.sum"
-                id="v-text-field"
                 label="sum"
                 name="sum"
                 type="number"
@@ -66,7 +65,7 @@
             </v-list>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="primary" id="donate" width="100%">DONATE</v-btn>
+            <v-btn color="primary" id="donate" width="100%" @click="postDonate">DONATE</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -75,6 +74,8 @@
 </template>
 
 <script>
+const axios = require('axios');
+
 export default {
   name: 'Donator',
 
@@ -94,6 +95,18 @@ export default {
     },
     currencySelected(value) {
       this.$store.commit('onCurrencySelected', value);
+    },
+    postDonate() {
+      axios
+        .post('/donate', {
+          amount: this.$store.state.sum, 
+          currency: this.$store.state.currency})
+        .then(function (response) {
+          alert(response);
+        })
+        .catch(function (error) {
+          alert(error);
+        });
     },
   }
 };
