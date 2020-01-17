@@ -74,7 +74,7 @@
 </template>
 
 <script>
-const axios = require('axios');
+import axios from 'axios';
 
 export default {
   name: 'Donator',
@@ -98,11 +98,9 @@ export default {
     },
     postDonate() {
       axios
-        .post('/donate', {
-          amount: this.$store.state.sum, 
-          currency: this.$store.state.currency})
+        .post('http://localhost:80/donate', '{"amount": "' + this.$store.state.sum + '", "currency": "' + this.$store.state.currency + '"}')
         .then(function (response) {
-          alert(response);
+          alert("Thank you for your donation!");
         })
         .catch(function (error) {
           alert(error);
