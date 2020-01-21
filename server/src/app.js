@@ -13,10 +13,12 @@ import mongo from 'koa-mongo';
 // unit
 import middleware from './middleware';
 import routes from './routes';
+import cors from '@koa/cors';
 
 const app = new Koa();
 
 app.use(logger());
+app.use(cors());
 app.use(bodyParser({
   extendTypes: {
     json: ['application/x-javascript', 'application/json', 'application/x-www-form-urlencoded'] // will parse application/* type body as a JSON string
@@ -44,9 +46,9 @@ app.use(middleware());
 app.use(routes());
 
 app.listen(
-  process.env.SRV_PORT | 80,
+  process.env.SRV_PORT,
   () => {
-    console.log(`✅  The server is running at http://localhost:${process.env.SRV_PORT | 80}/`);
+    console.log(`✅  The server is running at http://localhost:${process.env.SRV_PORT}/`);
     // open(`http://localhost:${env.port}/`);
   }
 );

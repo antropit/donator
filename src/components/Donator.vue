@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import fetch from 'node-fetch';
 
 export default {
   name: 'Donator',
@@ -97,12 +97,15 @@ export default {
       this.$store.commit('onCurrencySelected', value);
     },
     postDonate() {
-      axios
-        .post('http://localhost:80/donate', '{"amount": "' + this.$store.state.sum + '", "currency": "' + this.$store.state.currency + '"}')
-        .then(function (response) {
+      fetch('http://localhost:8001/donate', {
+        method: 'post',
+        body: JSON.stringify( { amount: this.$store.state.sum, currency: this.$store.state.currency } ),
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
+      })
+        .then(response => {
           alert("Thank you for your donation!");
         })
-        .catch(function (error) {
+        .catch(error => {
           alert(error);
         });
     },

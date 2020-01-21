@@ -22,8 +22,8 @@ router.post('/', async (ctx, next) => {
   const result = await ctx.db.collection('donations').insert({ amount, currency });
   if(result) {
     ctx.response.status = 200;
-    ctx.response.type = "application/x-www-form-urlencoded";
-    ctx.response.body = '{"ok": "true"}';
+    ctx.response.type = "application/json;charset=utf-8";
+    ctx.response.body = JSON.stringify( {'ok': true} );
   }
   else {
     ctx.response.status = 500;
