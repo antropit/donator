@@ -100,7 +100,7 @@ export default {
       fetch('http://localhost:8001/donate', {
         method: 'post',
         body: JSON.stringify( { amount: this.$store.state.sum, currency: this.$store.state.currency } ),
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
+        headers: { 'Content-Type': 'application/json' }, 
       })
         .then(response => {
           alert("Thank you for your donation!");
